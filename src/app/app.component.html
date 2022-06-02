@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+  <button mat-button class="mat-icon-button" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Phone Directory</span>
+  <div (click)="sidenav?.close()" *ngIf="!hideSideMenu">
+    <a mat-button [routerLink]="'display-contacts'"> Display </a>
+    <a mat-button [routerLink]="'add-contact'"> Add </a>
+    <a mat-button [routerLink]="'update-contact'"> Update </a>
+    <a mat-button [routerLink]="'delete-contact'"> Delete </a>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list (click)="sidenav.close()">
+
+      <a mat-list-item [routerLink]="'display-contacts'"> Display Contacts </a>
+      <a mat-list-item [routerLink]="'add-contact'"> Add Contact </a>
+      <a mat-list-item [routerLink]="'update-contact'"> Update Contact </a>
+      <a mat-list-item [routerLink]="'delete-contact'"> Delete Contact </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+}
+.center-form {
+    padding-top: 0px;
+}
+#empty-label {
+    margin-top: 20%;
+    font-size: x-large;
+}
+#not-found-label {
+    margin-top: 10%;
+    font-size: x-large;
+}
+#search {
+    padding-top: 20px;
+}

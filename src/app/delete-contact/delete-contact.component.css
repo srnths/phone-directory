@@ -1,0 +1,15 @@
+app-display-contacts {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+#delete-button {
+    left: 0%;
+}
+form {
+    text-align: center;
+}
+form button {
+    left: 0%;
+    padding-top: 10px;
+}

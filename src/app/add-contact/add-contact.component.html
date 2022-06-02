@@ -1,0 +1,48 @@
+<div class="center-form" >
+    <mat-label 
+    class="heading-label"
+    *ngIf="!updation">Add Contact</mat-label>
+    <form [formGroup]="addForm" (submit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="addForm.get('firstName')?.invalid">Enter first name</mat-error>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="addForm.get('lastName')?.invalid">Enter last name</mat-error>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill" id="phone">
+            <mat-label>Phone Number</mat-label>
+            <mat-icon matSuffix>phone</mat-icon>
+            <input matInput formControlName="phone">
+            <mat-error *ngIf="addForm.get('phone')?.hasError('minlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="addForm.get('phone')?.hasError('maxlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="addForm.get('phone')?.hasError('required')">
+                Phone number required
+            </mat-error>
+            <mat-error *ngIf="addForm.get('phone')?.hasError('pattern')">
+                Enter a number
+            </mat-error>
+        </mat-form-field>
+
+        <mat-label>Gender</mat-label>
+        <mat-radio-group (change)="radio()" formControlName='gender'>
+            <mat-radio-button [value]="true" [checked]=true>Male</mat-radio-button>
+            <mat-radio-button [value]="false">Female</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+        </mat-form-field>
+        <button 
+        mat-button 
+        [disabled]="!addForm.valid">{{updation? 'Update' : 'Submit'}}</button>
+    </form>
+</div>

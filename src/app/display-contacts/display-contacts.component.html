@@ -1,0 +1,37 @@
+<div class="center-form">
+  <div id="search-div" *ngIf="!delete && notEmpty">
+    <form [formGroup]="searchForm">
+        <mat-form-field id="search">
+            <input matInput placeholder="Search" formControlName="search">
+            <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+        </mat-form-field>
+    </form>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="notEmpty && !notFound">
+    <ng-container matColumnDef="First Name">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let contact">{{contact.firstName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Last Name">
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <td mat-cell *matCellDef="let contact">{{contact.lastName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let contact">{{contact.phone}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Gender">
+        <th mat-header-cell *matHeaderCellDef>Gender</th>
+        <td mat-cell *matCellDef="let contact">{{contact.isMale? 'Male' : 'Female'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let contact">{{contact.address}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row;columns: columnsToDisplay"></tr>
+</table>
+<mat-label *ngIf="!notEmpty" id="empty-label">Directory empty</mat-label>
+<mat-label *ngIf="notFound" id="not-found-label">Not Found</mat-label>
+</div>

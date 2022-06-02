@@ -1,0 +1,34 @@
+<div class="center-form">
+    <form [formGroup]="deleteForm" (submit)="findContact()">
+        <mat-label class="heading-label">Delete Contact</mat-label>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter the phone number</mat-label>
+            <input matInput formControlName="phone">
+            <mat-error *ngIf="deleteForm.get('phone')?.hasError('minlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="deleteForm.get('phone')?.hasError('maxlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="deleteForm.get('phone')?.hasError('required')">
+                Phone number required
+            </mat-error>
+            <mat-error *ngIf="deleteForm.get('phone')?.hasError('pattern')">
+                Enter a number
+            </mat-error>
+        </mat-form-field>
+        
+        <button mat-button [disabled]="!deleteForm.valid">Find Contact</button>
+    </form>
+    <app-display-contacts 
+    *ngIf="notEmpty" 
+    [notEmpty]="notEmpty"
+    [delete]="true"
+    [dataSource]="dataSource">
+    </app-display-contacts>
+    <button 
+    mat-button 
+    *ngIf="notEmpty" 
+    (click)="deleteContact()"
+    id="delete-button">Delete</button>
+</div>

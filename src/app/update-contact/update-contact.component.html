@@ -1,0 +1,26 @@
+<div class="center-form">
+    <form [formGroup]="updateForm" (submit)="findContact()">
+        <mat-label class="heading-label">Update Contact</mat-label>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter the phone number</mat-label>
+            <input matInput formControlName="phone">
+            <mat-error *ngIf="updateForm.get('phone')?.hasError('minlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="updateForm.get('phone')?.hasError('maxlength')">
+                Phone number has to be 10 digits
+            </mat-error>
+            <mat-error *ngIf="updateForm.get('phone')?.hasError('required')">
+                Phone number required
+            </mat-error>
+            <mat-error *ngIf="updateForm.get('phone')?.hasError('pattern')">
+                Enter a number
+            </mat-error>
+        </mat-form-field>
+        <button mat-button [disabled]="!updateForm.valid">Find Contact</button>
+    </form>
+    <app-add-contact 
+    [updation]="updation"
+    [hidden]="hideAddForm"
+    (update)="updateContact()"></app-add-contact>
+</div>
