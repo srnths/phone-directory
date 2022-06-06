@@ -20,6 +20,7 @@ import { AddContactComponent } from './add-contact/add-contact.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
 import { DeleteContactComponent } from './delete-contact/delete-contact.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatInputModule,
     MatRadioModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

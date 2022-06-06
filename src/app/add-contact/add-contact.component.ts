@@ -58,9 +58,22 @@ export class AddContactComponent implements OnInit {
       this.update.emit();
       if(!this.updation){
         this.contactService.contacts.push(contact);
-        this.matSnackBar.open('Contact added', 'OK',{duration:2000});
+        this.contactService.addContact(contact).subscribe({
+        next: (data) => {
+          if(data) {
+            this.matSnackBar.open(data.toString(), 'OK',{duration:2000});
+          }
+          else  {
+            this.matSnackBar.open('Contact added', 'OK',{duration:2000});
+          }
+        },
+        error: () => {
+          this.matSnackBar.open('Network error', 'OK',{duration:2000});
+        }
+        });
         
         this.addForm.reset();
+        this.addForm.get('gender')?.setValue(true);
         // this.addForm.get('firstName')?.clearValidators();
         // this.addForm.get('firstName')?.updateValueAndValidity();
         // this.addForm.get('lastName')?.clearValidators();
