@@ -61,16 +61,16 @@ export class AddContactComponent implements OnInit {
         this.matSnackBar.open('Contact added', 'OK',{duration:2000});
         
         this.addForm.reset();
-        this.addForm.get('firstName')?.clearValidators();
-        this.addForm.get('firstName')?.updateValueAndValidity();
-        this.addForm.get('lastName')?.clearValidators();
-        this.addForm.get('lastName')?.updateValueAndValidity();
-        this.addForm.get('gender')?.clearValidators();
-        this.addForm.get('gender')?.updateValueAndValidity();
-        this.addForm.get('phone')?.clearValidators();
-        this.addForm.get('phone')?.updateValueAndValidity();
-        this.addForm.get('address')?.clearValidators();
-        this.addForm.get('address')?.updateValueAndValidity();
+        // this.addForm.get('firstName')?.clearValidators();
+        // this.addForm.get('firstName')?.updateValueAndValidity();
+        // this.addForm.get('lastName')?.clearValidators();
+        // this.addForm.get('lastName')?.updateValueAndValidity();
+        // this.addForm.get('gender')?.clearValidators();
+        // this.addForm.get('gender')?.updateValueAndValidity();
+        // this.addForm.get('phone')?.clearValidators();
+        // this.addForm.get('phone')?.updateValueAndValidity();
+        // this.addForm.get('address')?.clearValidators();
+        // this.addForm.get('address')?.updateValueAndValidity();
        
       }
     }
