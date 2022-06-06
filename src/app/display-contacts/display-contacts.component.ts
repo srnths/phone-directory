@@ -10,7 +10,7 @@ import { ContactsService } from '../contacts.service';
 export class DisplayContactsComponent implements OnInit {
 
   constructor(private contactService: ContactsService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) { this.contactService.displayContact() }
 
   @Input() notEmpty: boolean = false;
   @Input() delete: boolean = false;
@@ -31,6 +31,7 @@ export class DisplayContactsComponent implements OnInit {
   }
 
   onChanges() {
+    console.log(this.dataSource);
     this.searchForm.get('search')?.valueChanges.subscribe(val =>{
       if (this.contactService.contacts.length != 0){
         this.dataSource = this.contactService.contacts.filter(
