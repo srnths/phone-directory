@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatTable } from '@angular/material/table';
 import { ContactsService } from '../contacts.service';
 
 @Component({
@@ -10,8 +11,11 @@ import { ContactsService } from '../contacts.service';
 export class DisplayContactsComponent implements OnInit {
 
   constructor(private contactService: ContactsService,
-    private fb: FormBuilder) { this.contactService.displayContact() }
+    private fb: FormBuilder) { 
+      
+  }
 
+  @ViewChild(MatTable) table!: MatTable<any>;
   @Input() notEmpty: boolean = false;
   @Input() delete: boolean = false;
   @Input() dataSource = this.contactService.contacts;
@@ -28,10 +32,10 @@ export class DisplayContactsComponent implements OnInit {
     if (this.dataSource.length != 0)
       this.notEmpty = true;
     this.onChanges();
+    this.displayContacts();
   }
 
   onChanges() {
-    console.log(this.dataSource);
     this.searchForm.get('search')?.valueChanges.subscribe(val =>{
       if (this.contactService.contacts.length != 0){
         this.dataSource = this.contactService.contacts.filter(
@@ -45,6 +49,19 @@ export class DisplayContactsComponent implements OnInit {
         }
       }
     })
+  }
+
+  displayContacts() {
+  this.contactService.displayContact().then(() => {
+    this.dataSource = this.contactService.contacts;
+    this.table?.renderRows();
+    if(this.contactService.contacts.length != 0) {
+      this.notEmpty = true;
+    }
+  },
+  () => {
+    console.log('error');
+  }); 
   }
 
 }

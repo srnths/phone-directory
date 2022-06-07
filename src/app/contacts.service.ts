@@ -9,8 +9,15 @@ import { Contact } from './contact';
 
 export class ContactsService {
 
-  contacts: Contact[] = []; 
+  contacts: Contact[] = [];
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+
+  promiseResolve: any;
+  promiseReject: any;
+  promise = new Promise((resolve, reject) => {
+    this.promiseResolve = resolve;
+    this.promiseReject = reject;
+  });
 
   addContact(formData: Contact) {
     return this.http.post('http://localhost:3000/api/add-contact', formData);
@@ -24,10 +31,14 @@ export class ContactsService {
     this.http.get<Contact[]>('http://localhost:3000/api/get-contacts').subscribe({
       next: (data) => {
         this.contacts = data;
+        this.promiseResolve();
       },
       error: () => {
         this.snackBar.open('Network error', 'OK', {duration: 2000});
+        this.promiseReject();
       }
     });
+
+    return this.promise;
   }
 }

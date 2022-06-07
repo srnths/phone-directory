@@ -43,6 +43,7 @@ export class UpdateContactComponent implements OnInit {
       if (contact.phone == phone) {
         this.index = i;
         this.contact = contact;
+        return;
       }
     });
     if (this.index != -1) {
@@ -51,6 +52,7 @@ export class UpdateContactComponent implements OnInit {
       this.addContact?.addForm.get('firstName')?.setValue(this.contact?.firstName);
       this.addContact?.addForm.get('lastName')?.setValue(this.contact?.lastName);
       this.addContact?.addForm.get('phone')?.setValue(this.contact?.phone);
+      this.addContact?.addForm.get('phone')?.disable();
       this.addContact?.addForm.get('gender')?.setValue(this.contact?.isMale);
       this.addContact?.addForm.get('address')?.setValue(this.contact?.address);
     }
@@ -60,9 +62,6 @@ export class UpdateContactComponent implements OnInit {
   }
 
   updateContact() {
-    this.index = this.contactService.contacts.findIndex(
-      contact => contact.phone == this.contact?.phone
-    );
 
     this.contact = {
       firstName: this.addContact?.addForm.get('firstName')?.value,
@@ -75,7 +74,18 @@ export class UpdateContactComponent implements OnInit {
     this.contactService.contacts[this.index] = this.contact;
     this.hideAddForm = true;
     this.updation = true;
-    this.matSnackbar.open('Contact Updated','Ok',{duration: 2000});
+      this.contactService.updateContact(this.contact).subscribe({
+        next: (data) => {
+          if (data) {
+            this.matSnackbar.open(data.toString(), 'OK', {duration: 2000});
+          }
+          else {
+            this.matSnackbar.open('Contact Updated','OK',{duration: 2000});
+          }
+        },
+        error: () => {
+          this.matSnackbar.open('Database error', 'OK', {duration: 2000});
+        }
+      });
   }
-
 }
