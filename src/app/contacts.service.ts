@@ -17,6 +17,9 @@ export class ContactsService {
   promise = new Promise((resolve, reject) => {
     this.promiseResolve = resolve;
     this.promiseReject = reject;
+    setTimeout(() => {
+      reject();
+    }, 4500);
   });
 
   addContact(formData: Contact) {
@@ -24,7 +27,7 @@ export class ContactsService {
   }
 
   updateContact(formData: Contact) {
-    return this.http.post('http://localhost:3000/api/update-contact', formData);
+    return this.http.put('http://localhost:3000/api/update-contact', formData);
   }
 
   displayContact() {
@@ -43,6 +46,6 @@ export class ContactsService {
   }
 
   deleteContact(formData: number) {
-    return this.http.post('http://localhost:3000/api/delete-contact', {formData});
+    return this.http.delete('http://localhost:3000/api/delete-contact', {body: {formData}});
   }
 }

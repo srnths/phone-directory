@@ -13,7 +13,9 @@ export class DeleteContactComponent implements OnInit {
 
   constructor(private fb: FormBuilder, 
     private contactService: ContactsService,
-    private matSnackBar: MatSnackBar) { contactService.displayContact() }
+    private matSnackBar: MatSnackBar) { 
+      contactService.displayContact().then(()=>{},
+      ()=>{matSnackBar.open('Database error', 'OK', {duration: 4000})}) }
 
   notEmpty: boolean = false;
   dataSource: any;

@@ -16,7 +16,9 @@ export class UpdateContactComponent implements OnInit {
 
   constructor(private fb:FormBuilder, 
     private contactService: ContactsService,
-    private matSnackbar: MatSnackBar) { contactService.displayContact() }
+    private matSnackbar: MatSnackBar) { 
+      contactService.displayContact().then(()=>{},
+      ()=>{matSnackbar.open('Database error', 'OK', {duration: 4000})}) }
   hideAddForm: boolean = true;
   updation: boolean = true;
   contact: Contact | undefined;
@@ -75,16 +77,11 @@ export class UpdateContactComponent implements OnInit {
     this.hideAddForm = true;
     this.updation = true;
       this.contactService.updateContact(this.contact).subscribe({
-        next: (data) => {
-          if (data) {
-            this.matSnackbar.open(data.toString(), 'OK', {duration: 2000});
-          }
-          else {
+        next: () => {
             this.matSnackbar.open('Contact Updated','OK',{duration: 2000});
-          }
         },
         error: () => {
-          this.matSnackbar.open('Database error', 'OK', {duration: 2000});
+          this.matSnackbar.open('sub error', 'OK', {duration: 2000});
         }
       });
   }

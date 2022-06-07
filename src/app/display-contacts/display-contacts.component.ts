@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { ContactsService } from '../contacts.service';
 
@@ -11,7 +12,7 @@ import { ContactsService } from '../contacts.service';
 export class DisplayContactsComponent implements OnInit {
 
   constructor(private contactService: ContactsService,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder, private snackBar: MatSnackBar) { 
       
   }
 
@@ -62,7 +63,7 @@ export class DisplayContactsComponent implements OnInit {
     }
     },
     () => {
-      console.log('error');
+      this.snackBar.open('Database error', 'OK', {duration: 2000});
     }); 
   }
 
