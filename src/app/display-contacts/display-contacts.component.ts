@@ -32,7 +32,9 @@ export class DisplayContactsComponent implements OnInit {
     if (this.dataSource.length != 0)
       this.notEmpty = true;
     this.onChanges();
-    this.displayContacts();
+    if(!this.delete){
+      this.displayContacts();
+    }
   }
 
   onChanges() {
