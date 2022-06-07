@@ -41,4 +41,8 @@ export class ContactsService {
 
     return this.promise;
   }
+
+  deleteContact(formData: number) {
+    return this.http.post('http://localhost:3000/api/delete-contact', {formData});
+  }
 }

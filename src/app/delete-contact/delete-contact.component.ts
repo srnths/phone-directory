@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ContactsService } from '../contacts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Contact } from '../contact';
 
 @Component({
   selector: 'app-delete-contact',
@@ -12,11 +13,12 @@ export class DeleteContactComponent implements OnInit {
 
   constructor(private fb: FormBuilder, 
     private contactService: ContactsService,
-    private matSnackBar: MatSnackBar) { }
+    private matSnackBar: MatSnackBar) { contactService.displayContact() }
 
   notEmpty: boolean = false;
   dataSource: any;
   index: number = -1;
+  contact!: Contact;
 
   deleteForm = this.fb.group({
     phone: ['', [Validators.required, 
@@ -40,6 +42,7 @@ export class DeleteContactComponent implements OnInit {
       if(contact.phone == phone){
         this.dataSource = [contact];
         this.index = i;
+        this.contact = contact;
       }});
     if (this.dataSource) {
       this.notEmpty = true;
@@ -50,10 +53,17 @@ export class DeleteContactComponent implements OnInit {
   }
 
   deleteContact() {
-    this.contactService.contacts.splice(this.index, 1);
-    this.notEmpty = false;
-    this.dataSource = null;
-    this.matSnackBar.open('Contact deleted', 'OK', {duration: 2000});
+    this.contactService.deleteContact(this.contact?.phone).subscribe({
+      next: () => {
+        this.contactService.contacts.splice(this.index, 1);
+        this.notEmpty = false;
+        this.dataSource = null;
+        this.matSnackBar.open('Contact deleted', 'OK', {duration: 2000});
+      },
+      error: () => {
+        this.matSnackBar.open('Network Error', 'OK', {duration: 2000});
+      }
+    });
   }
 
 }

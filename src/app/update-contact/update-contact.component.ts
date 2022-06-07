@@ -16,7 +16,7 @@ export class UpdateContactComponent implements OnInit {
 
   constructor(private fb:FormBuilder, 
     private contactService: ContactsService,
-    private matSnackbar: MatSnackBar) { }
+    private matSnackbar: MatSnackBar) { contactService.displayContact() }
   hideAddForm: boolean = true;
   updation: boolean = true;
   contact: Contact | undefined;

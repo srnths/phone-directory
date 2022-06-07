@@ -58,10 +58,10 @@ export class DisplayContactsComponent implements OnInit {
     if(this.contactService.contacts.length != 0) {
       this.notEmpty = true;
     }
-  },
-  () => {
-    console.log('error');
-  }); 
+    },
+    () => {
+      console.log('error');
+    }); 
   }
 
 }
