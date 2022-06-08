@@ -81,7 +81,7 @@ export class UpdateContactComponent implements OnInit {
             this.matSnackbar.open('Contact Updated','OK',{duration: 2000});
         },
         error: () => {
-          this.matSnackbar.open('sub error', 'OK', {duration: 2000});
+          this.matSnackbar.open('Network error', 'OK', {duration: 2000});
         }
       });
   }
